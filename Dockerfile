@@ -1,8 +1,8 @@
-FROM --platform=linux/amd64 debian:12-slim AS build
+FROM debian:12-slim AS build
 RUN apt-get update
 RUN apt-get install -y openssl
 
-FROM --platform=linux/amd64 gcr.io/distroless/base-debian12
+FROM gcr.io/distroless/base-debian12
 COPY --from=build /usr/lib/ssl/openssl.cnf /usr/lib
 COPY --from=build /usr/bin/openssl /usr/bin
 WORKDIR /root
